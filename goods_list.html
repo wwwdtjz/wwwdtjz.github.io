@@ -1,0 +1,493 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="css/style.css"/>       
+        <link href="assets/css/codemirror.css" rel="stylesheet">
+        <link rel="stylesheet" href="assets/css/ace.min.css" />
+        <link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+		<!--[if IE 7]>
+		  <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
+		<![endif]-->
+        <!--[if lte IE 8]>
+		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
+		<![endif]-->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/Bmob-2.2.51.min.js"></script>
+
+		<!-- <![endif]-->
+
+		<script type="text/javascript">
+			window.jQuery || document.write("<script src='assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
+				Bmob.initialize("d911521217825ac7", "101213");
+		</script>
+
+
+		<script type="text/javascript">
+			if("ontouchend" in document) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+		</script>
+		<script src="assets/js/bootstrap.min.js"></script>
+		<script src="assets/js/typeahead-bs2.min.js"></script>
+		<!-- page specific plugin scripts -->
+		<script src="assets/js/jquery.dataTables.min.js"></script>
+		<script src="assets/js/jquery.dataTables.bootstrap.js"></script>
+        <script type="text/javascript" src="js/H-ui.js"></script> 
+        <script type="text/javascript" src="js/H-ui.admin.js"></script> 
+        <script src="assets/layer/layer.js" type="text/javascript" ></script>
+        <script src="assets/laydate/laydate.js" type="text/javascript"></script>
+<title>用户列表</title>
+</head>
+
+<body>
+<div class="page-content clearfix">
+    <div id="Member_Ratings">
+		
+      <div class="d_Confirm_Order_style">
+      <!---->
+	  <span class="l_f " id="add-user" style="display: none; margin-top: 10px; margin-bottom: 10px;">
+        <a onclick="add_user()" href="javascript:;" id="member_add" class="btn btn-warning">编辑用户</a>
+		<a onclick="add_pruduct()" href="javascript:;" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>添加商品</a>
+		<a onclick="add_mini_pruduct()" href="javascript:;" id="member_add" class="btn btn-success" style="margin-left: 20px;">编辑小程序商品</a>
+
+	</span>
+     <!---->
+     <div class="table_menu_list">
+       <table class="table table-striped table-bordered table-hover" id="sample-table">
+		<thead>
+		 <tr>
+				<th width="20"></th>
+				<th width="300">商品描述</th>
+        		<th width="60">商品详情</th>
+				<th width="50">视频数量</th>
+				<th width="60">视频剩余数</th>
+				<th width="50">商品现价</th>
+				<th width="60">商品券后价</th>
+        		<th width="50">佣金比例</th>
+				<!-- <th width="70">月销量</th>                 -->
+				<th width="40">预估赚</th>
+        		<th width="110">特殊要求</th>
+				<th width="70"><label>账号</label></th>
+        		<th width="80">操作</th>
+			</tr>
+		</thead>
+
+
+
+	</table>
+   </div>
+  </div>
+ </div>
+</div>
+<!--添加用户图层-->
+<div class="edit_menber" id="edit_menber_style" style="display:none">
+  
+    <ul class=" page-content">
+	 <li class="adderss"><label class="label_name">商品描述：</label><span class="add_name"><input name="商品描述" type="text" id="edit_p_name"  class="text_add" style=" width:550px"/></span><div class="prompt r_f"></div></li>
+	 <li class="adderss"><label class="label_name">视频链接：</label><span class="add_name"><input name="视频链接" type="text" id="edit_video_link"  class="text_add" style=" width:550px"/></span><div class="prompt r_f"></div></li>
+	 <li><label class="label_name">视频数量：</label><span class="add_name"><input  type="text" name="视频数量" class="text_add" id="edit_video_num" /></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">剩余数量：</label><span class="add_name"><input  type="text" name="剩余数量" class="text_add" id="edit_video_num_residue"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">商品现价：</label><span class="add_name"><input type="text" name="商品现价" class="text_add" id="edit_price"/></span><div class="prompt r_f"></div></li>
+	 <li><label class="label_name">券后价：</label><span class="add_name"><input type="text" name="券后价" class="text_add" id="edit_discount"/></span><div class="prompt r_f"></div></li>
+	 <li><label class="label_name">佣金比例：</label><span class="add_name"><input type="text" name="佣金比例"  class="text_add"id="edit_commission" /></span><div class="prompt r_f"></div></li>
+	 <!-- <li><label class="label_name">月销量：</label><span class="add_name"><input type="text" name="月销量"  class="text_add" id="edit_monthly_sales"/></span><div class="prompt r_f"></div></li> -->
+	 <li><label class="label_name">预估赚：</label><span class="add_name"><input type="text"  name="预估价" class="text_add" id="edit_profit"/></span><div class="prompt r_f"></div></li>
+	 <li><label class="label_name">特殊要求：</label><span class="add_name"><input type="text" name="特殊要求" class="text_add" id="edit_require"/></span><div class="prompt r_f"></div></li>
+	</ul>
+ </div>
+
+ <div class="add_menber" id="add_menber_style" style="display:none">
+  
+    <ul class=" page-content">
+	 <li class="adderss"><label class="label_name">商品描述：</label><span class="add_name"><input name="商品描述" type="text" id="add_p_name"  class="text_add" style=" width:550px"/></span><div class="prompt r_f"></div></li>
+	 <li class="adderss"><label class="label_name">视频链接：</label><span class="add_name"><input name="视频链接" type="text" id="add_video_link"  class="text_add" style=" width:550px"/></span><div class="prompt r_f"></div></li>
+
+	 <li><label class="label_name">用户账号：</label><span class="add_name"><input  type="text" name="用户账号" class="text_add" id="add_username" /></span><div class="prompt r_f"></div></li>
+
+	 <li><label class="label_name">视频数量：</label><span class="add_name"><input  type="text" name="视频数量" class="text_add" id="add_video_num" /></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">剩余数量：</label><span class="add_name"><input  type="text" name="剩余数量" class="text_add" id="add_video_num_residue"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">商品现价：</label><span class="add_name"><input type="text" name="商品现价" class="text_add" id="add_price"/></span><div class="prompt r_f"></div></li>
+	 <li><label class="label_name">券后价：</label><span class="add_name"><input type="text" name="券后价" class="text_add" id="add_discount"/></span><div class="prompt r_f"></div></li>
+	 <li><label class="label_name">佣金比例：</label><span class="add_name"><input type="text" name="佣金比例"  class="text_add"id="add_commission" /></span><div class="prompt r_f"></div></li>
+	 <!-- <li><label class="label_name">月销量：</label><span class="add_name"><input type="text" name="月销量"  class="text_add" id="add_monthly_sales"/></span><div class="prompt r_f"></div></li> -->
+	 <li><label class="label_name">预估赚：</label><span class="add_name"><input type="text"  name="预估价" class="text_add" id="add_profit"/></span><div class="prompt r_f"></div></li>
+	 <li><label class="label_name">特殊要求：</label><span class="add_name"><input type="text" name="特殊要求" class="text_add" id="add_require"/></span><div class="prompt r_f"></div></li>
+	</ul>
+ </div>
+
+</body>
+</html>
+
+<script>
+
+let pageNum = 5;
+
+fetch_products();
+
+function fetch_products(){
+		let current = Bmob.User.current()
+		const query = Bmob.Query('products');
+
+		if (current == null) {
+			location.href="login.html";
+		}
+		if(current.level == 1) {
+			$("#add-user").css("display","block")
+		} else {
+			query.equalTo("uid", "==", current.objectId);
+		}
+		query.count().then(res => {
+			var count = 0;
+			var data_list = []
+			for (var i = 0; i < Math.ceil(res/pageNum); i++) {
+				
+				fetch_products_page(i*pageNum,function(data){
+					count++;
+					data_list.push(data)					
+					if (count == Math.ceil(res/pageNum)) {
+						var products = []
+						for (var j = 0; j < data_list.length; j++){
+							var arr = data_list[j];
+							for (var k = 0; k < arr.length; k++){
+								var a = arr[k];
+								products.push(a)					
+							}
+						}
+						products.sort(object)
+						add_products_ui(products)
+					}
+				})
+
+			}
+		}).catch(err => {
+			layer.msg('网络出错，请检查网络后重试',{icon:2,time:5*1000})
+			console.log(err)
+		});
+
+}
+
+function object(a,b) {
+    return b.username-a.username;
+}
+
+function fetch_products_page(skip,callback){
+	   // console.log(skip)
+		let current = Bmob.User.current()
+		const query = Bmob.Query('products');
+		if (current == null) {
+			location.href="login.html";
+		}
+		if(current.level == 1) {
+			$("#add-user").css("display","block")
+		} else {
+			query.equalTo("uid", "==", current.objectId);
+		}
+		query.limit(pageNum);
+		// query.order("username");
+
+		query.skip(skip); // skip the first 10 results
+		query.find().then(res => {
+			callback(res)
+		}).catch(err => {
+			layer.msg('网络出错，请检查网络后重试',{icon:2,time:5*1000})
+			console.log(err)
+		});
+}
+
+
+
+function add_products_ui(res) {
+		let current = Bmob.User.current()
+
+	for (var i = 0; i < res.length; i++){
+		var dict = res[i];
+		var box = ''			
+
+		var num = '<td>'+i+'</td>'
+		var p_name = '<td>' + dict['p_name'] +' </td>'
+		var p_detail = '<td>' + '<u style="cursor:pointer" class="text-primary" onclick="member_show(\''+i+'\',\''+dict['objectId']+'\')">点击详情</u>' +' </td>'
+		var video_num = '<td>' + dict['video_num'] +' </td>'
+		var video_num_residue = '<td>' + dict['video_num_residue'] +' </td>'
+		var price = '<td>' + dict['price'] +' </td>'
+		var discount = '<td>' + dict['discount'] +' </td>'
+		var commission = '<td>' + dict['commission'] +' </td>'
+		// var monthly_sales = '<td>' + dict['monthly_sales'] +' </td>'
+		var profit = '<td>' + dict['profit'] +' </td>'
+		var require = '<td>' + dict['require'] +' </td>'
+
+		var uname = '<td>' + dict['username'] +' </td>'
+		var valEdit = ''
+
+		var bmid = dict['objectId']
+
+		if(current.level == 1) {
+			valEdit = '<td class="td-manage"><a title="编辑" onclick="member_edit(\''+bmid+'\')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a>'
+			valEdit = valEdit+ '<a title="删除" href="javascript:;"  onclick="member_del(\''+bmid+'\')"  class="btn btn-xs btn-warning" ><i class="icon-trash bigger-120"></i></a></td>'
+		}
+		var tb = $('<tbody><tr>'+box+num+p_name+p_detail+video_num+video_num_residue+price+discount+commission+profit+ require+uname+valEdit+'</tr></tbody>')
+		$('#sample-table').append(tb)
+	}
+}
+
+
+/*用户-查看*/
+function member_show(id,bmid){
+	console.log(bmid)
+	location.href="product_detail.html?"+"bmid="+bmid;
+
+}
+
+
+function add_mini_pruduct(){
+
+	location.href="admin_min.html";
+}
+
+function add_user(){
+
+	location.href="admin_Competence.html";
+}
+function add_pruduct(){
+	console.log('xxxx');
+
+	let current = Bmob.User.current()
+	console.log(current)
+	if (current == null) {
+		location.href="login.html";
+	}
+	if(current.level != 1) {	
+		layer.alert("只有超级管理员才能新增\r\n",{
+                title: '提示框',				
+				icon:0,								
+          		}); 
+		    num++;
+		return false;            
+	}
+
+	layer.open({
+        type: 1,
+        title: '添加用户信息',
+		maxmin: true, 
+		shadeClose:false, //点击遮罩关闭层
+        area : ['800px' , ''],
+        content:$('#add_menber_style'),
+		btn:['提交','取消'],
+		yes:function(index,layero){	
+
+		 var num=0;
+		 var str="";
+     	$(".add_menber input[type$='text']").each(function(n){
+        if($(this).val()=="")
+          {
+			layer.alert(str+=""+$(this).attr("name")+"不能为空！\r\n",{
+                title: '提示框',				
+				icon:0,								
+          		}); 
+		    num++;
+            return false;            
+          } 
+		 });
+		  if(num>0){  return false;}	 	
+          else{
+
+			console.log('开始查询。。。。');
+			console.log($("#add_username").val());
+			layer.msg('加载中。。。',{time:2*60*1000})
+
+			const query1 = Bmob.Query('_User');
+			query1.equalTo("username","==", $("#add_username").val());
+			query1.find().then(res => {
+				layer.msg('加载成功',{time:500})
+				console.log(res)
+				if (typeof(res[0]) == "undefined") {
+					console.log($("#add_username").val())
+					layer.alert(str+=""+$("#add_username").val()+"用户账号不存在！\r\n",{
+						title: '提示框',				
+						icon:0,								
+					}); 
+					num++;
+					return false; 	
+				}
+
+				var uname = res[0]['username']
+				var uid = res[0]['objectId']
+				if (uname == $("#add_username").val()) {
+					const query = Bmob.Query('products');
+					query.set('p_name',$("#add_p_name").val())
+					query.set("p_detail",  {"video_links":$("#add_video_link").val()} )
+					query.set('video_num',Number($("#add_video_num").val()))
+					query.set('video_num_residue',Number($("#add_video_num_residue").val()))
+					query.set('discount',Number($("#add_discount").val()))
+					query.set('price',Number($("#add_price").val()))
+					query.set('commission',Number($("#add_commission").val()))
+					// query.set('monthly_sales',Number($("#add_monthly_sales").val()))
+					query.set('profit',Number($("#add_profit").val()))
+					query.set('require',$("#add_require").val())
+
+					query.set('uid',uid)
+					query.set('username',uname)
+
+					query.save().then(res => {
+						layer.msg('加载成功',{time:500})
+
+						layer.alert('添加成功！',{
+							title: '提示框',				
+							icon:1,		
+						});
+						layer.close(index);	
+						location.reload();
+					}).catch(err => {
+						console.log(err)
+						layer.msg('加载失败',{time:500})
+						layer.alert(str+=""+err.error+"\r\n",{
+						title: '提示框',				
+						icon:0,								
+						}); 
+						num++;
+						return false;   
+					})
+
+				}else {
+					console.log($("#add_username").val())
+					layer.alert(str+=""+$("#add_username").val()+"用户账号不存在！\r\n",{
+						title: '提示框',				
+						icon:0,								
+					}); 
+					num++;
+					return false; 	
+    			}
+			});			
+		  }		  		     				
+		}
+    });
+}
+
+/*编辑*/
+function member_edit(bmid){
+	console.log("member_edit")
+	let current = Bmob.User.current()
+	const query = Bmob.Query('products');
+	layer.msg('加载中。。。',{time:2*60*1000})
+
+	query.get(bmid).then(res => {
+		layer.msg('加载成功',{time:500})
+		$("#edit_p_name").val(res["p_name"])
+
+		var video_links = JSON.stringify(res["p_detail"]["video_links"])
+		var reg = /\\"/g
+
+		var replaceAfter = video_links.replace(reg,'"');
+		replaceAfter = replaceAfter.replace('"[','[');
+		replaceAfter = replaceAfter.replace(']"',']');
+
+		$("#edit_video_link").val(replaceAfter)
+
+		$("#edit_video_num").val(res["video_num"])
+		$("#edit_video_num_residue").val(res["video_num_residue"])
+		$("#edit_discount").val(res["discount"])
+		$("#edit_price").val(res["price"])
+		$("#edit_commission").val(res["commission"])
+		$("#edit_profit").val(res["profit"])
+		$("#edit_require").val(res["require"])
+	}).catch(err => {
+
+		console.log(err)
+		layer.alert(str+=""+err.error+"\r\n",{
+        title: '提示框',				
+		icon:0,								
+  		}); 
+    	num++;
+    	return false;   
+	});
+
+	  layer.open({
+        type: 1,
+        title: '修改用户信息',
+		maxmin: true, 
+		shadeClose:false, //点击遮罩关闭层
+        area : ['800px' , ''],
+        content:$('#edit_menber_style'),
+		btn:['提交','取消'],
+		yes:function(index,layero){	
+
+		 	var num=0;
+		 	var str="";
+     		$(".edit_menber input[type$='text']").each(function(n){
+        		if($(this).val()=="")
+          		{
+					layer.alert(str+=""+$(this).attr("name")+"不能为空！\r\n",{
+                		title: '提示框',				
+						icon:0,								
+          			}); 
+		    		num++;
+            		return false;            
+          		} 
+		 	});
+		  	if(num>0){  return false;}	 	
+          	else{
+
+				const query = Bmob.Query('products');
+				layer.msg('修改中。。。',{time:2*60*1000})
+				query.get(bmid).then(res => {
+					layer.msg('成功',{time:500})
+					res.set('p_name',$("#edit_p_name").val())
+					res.set("p_detail",  {"video_links":$("#edit_video_link").val()})
+					res.set('video_num',Number($("#edit_video_num").val()))
+					res.set('video_num_residue',Number($("#edit_video_num_residue").val()))
+					res.set('discount',Number($("#edit_discount").val()))
+					res.set('price',Number($("#edit_price").val()))
+					res.set('commission',Number($("#edit_commission").val()))
+					res.set('profit',Number($("#edit_profit").val()))
+					res.set('require',$("#edit_require").val())
+					res.save().then(res => {
+ 						layer.alert('添加成功！',{
+               				title: '提示框',				
+							icon:1,		
+			  			});
+						layer.close(index);	
+						location.reload();
+
+ 					}).catch(err => {
+						console.log(err)
+						layer.alert(str+=""+err.error+"\r\n",{
+                			title: '提示框',				
+							icon:0,								
+          				}); 
+            			return false;   
+					})
+
+				}).catch(err => {
+					console.log(err)
+					layer.alert(str+=""+err.error+"\r\n",{
+                		title: '提示框',				
+						icon:0,								
+          			}); 
+		    		num++;
+            		return false;   
+				})						
+		 	 }		  		     				
+		}
+    });
+
+}
+/*用户-删除*/
+function member_del(bmid){
+	layer.confirm('确认要删除吗？',function(index){
+		const query = Bmob.Query('products');
+		query.destroy(bmid).then(res => {
+			console.log(res)
+			layer.msg('已删除! ',{icon:1,time:1000});
+			location.reload();
+		}).catch(err => {
+			console.log(err)
+			layer.msg('出错 ',{icon:1,time:1000});
+
+		})
+	});
+}
+laydate({
+    elem: '#start',
+    event: 'focus' 
+});
+
+</script>
